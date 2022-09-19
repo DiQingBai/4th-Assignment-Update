@@ -1,0 +1,176 @@
+#include<stdio.h>
+
+typedef struct student{
+
+    int rno; //Member of structure
+    char name[20]; //Pointer within structure
+    struct subject{ //Structure within Structure
+        int scode;
+        char name[20]; //Array within structure
+        int mark;
+    }sub[3]; //Array of Structure
+    int total;
+    float per;
+
+}student;
+
+void create(){
+        student *s;
+        FILE *fp;
+        int n,i,j;
+
+        printf("Enter how many students : ");
+        scanf("%d",&n);
+        s = (student*)calloc(n,sizeof(student));
+        fp = fopen("mystudents1.txt","w+");
+
+        for(i=0;i<n;i++){
+            s[i].total=0;
+            s[i].per=0;
+            printf("Enter RollNo : ");
+            scanf("%d",&s[i].rno);
+            fflush(stdin);
+            printf("Enter Name : ");
+            scanf("%[^\n]s",s[i].name);
+            for(j=0;j<3;j++){
+                printf("Enter Marks of Sub%d : ",j+1);
+                scanf("%d",&s[i].sub[j].mark);
+                s[i].total += s[i].sub[j].mark;
+            }
+            s[i].per = s[i].total / 3.0;
+
+            fwrite(s+i,sizeof(student),1,fp);
+        }
+        fclose(fp);
+}
+void append(){
+        student *s, s1;
+        FILE *fp;
+        int n,i,j;
+
+        printf("Enter how many students : ");
+        scanf("%d",&n);
+        s = (student*)calloc(n,sizeof(student));
+        fp = fopen("mystudents1.txt","a");
+
+        for(i=0;i<n;i++){
+            s[i].total=0;
+            s[i].per=0;
+            printf("Enter RollNo : ");
+            scanf("%d",&s[i].rno);
+            fflush(stdin);
+            printf("Enter Name : ");
+            scanf("%[^\n]s",s[i].name);
+            for(j=0;j<3;j++){
+                printf("Enter Marks of Sub%d : ",j+1);
+                scanf("%d",&s[i].sub[j].mark);
+                s[i].total += s[i].sub[j].mark;
+            }
+            s[i].per = s[i].total / 3.0;
+
+            fwrite(s+i,sizeof(student),1,fp);
+        }
+        fclose(fp);
+}
+void search(){
+    int i, j, found=0;
+    student s1;
+    FILE *fp;
+    int rno;
+    printf("Enter RollNo to Search : ");
+    scanf("%d",&rno);
+
+    fp = fopen("mystudents1.txt","r");
+    while(fread(&s1,sizeof(student),1,fp)){
+        if(s1.rno == rno){
+            found = 1;
+            printf("\n%-5d%-20s",s1.rno,s1.name);
+            for(j=0;j<3;j++){
+                printf("%4d",s1.sub[j].mark);
+            }
+            printf("%5d%7.2f",s1.total,s1.per);
+        }
+    }
+    if(!found)
+        printf("\nNot Found.....\n");
+    fclose(fp);
+}
+
+void update(){
+    int i, j, found=0;
+    student s1;
+    FILE *fp, *fp1;
+    int rno;
+    printf("Enter RollNo to Update : ");
+    scanf("%d",&rno);
+
+    fp = fopen("mystudents1.txt","r");
+    fp1 = fopen("temp.txt","w");
+    while(fread(&s1,sizeof(student),1,fp)){
+        if(s1.rno == rno){
+            found = 1;
+            s1.total=0;
+            s1.per=0;
+            fflush(stdin);
+            printf("Enter New Name : ");
+            scanf("%[^\n]s",s1.name);
+            for(j=0;j<3;j++){
+                printf("Enter New Marks of Sub%d : ",j+1);
+                void search(){
+    int i, j, found=0;
+    student s1;
+    FILE *fp;
+    int rno;
+    printf("Enter RollNo to Search : ");
+    scanf("%d",&rno);
+
+    fp = fopen("mystudents1.txt","r");
+    while(fread(&s1,sizeof(student),1,fp)){
+        if(s1.rno == rno){
+            found = 1;
+            printf("\n%-5d%-20s",s1.rno,s1.name);
+            for(j=0;j<3;j++){
+                printf("%4d",s1.sub[j].mark);
+            }
+            printf("%5d%7.2f",s1.total,s1.per);
+        }
+    }
+    if(!found)
+        printf("\nNot Found.....\n");
+    fclose(fp);
+}
+
+void update(){
+    int i, j, found=0;
+    student s1;
+    FILE *fp, *fp1;
+    int rno;
+    printf("Enter RollNo to Update : ");
+    scanf("%d",&rno);
+
+    fp = fopen("mystudents1.txt","r");
+    fp1 = fopen("temp.txt","w");
+    while(fread(&s1,sizeof(student),1,fp)){
+        if(s1.rno == rno){
+            found = 1;
+            s1.total=0;
+            s1.per=0;
+            fflush(stdin);
+            printf("Enter New Name : ");
+            scanf("%[^\n]s",s1.name);
+            for(j=0;j<3;j++){
+                printf("Enter New Marks of Sub%d : ",j+1);
+                case 3:
+                search();
+        break;
+        case 4:
+                update();
+            break;
+
+        case 0:
+                printf("\n\nThanks.....\n\n");
+        }
+        }while(ch!=0);
+
+    return 0;
+}
